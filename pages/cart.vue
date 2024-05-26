@@ -430,6 +430,9 @@ export default {
           if (this.discount_Value == null || this.discount_Value <= 0) {
             this.discount_Value = 0;
           }
+          console.log(`
+            Esse é o ID do produto ${this.product.id}
+          `)
           await this.$axios
             .$post(`order/${this.product.id}/${data.user.id}`, {
               quantity_product: this.product.quantity,

@@ -1,58 +1,57 @@
 <template>
-  <section>
-    <div class="page-product container">
-      <div class="content-img">
-        <img src="../img/glove/luva3.png" alt="" />
-      </div>
-      <div class="content-info">
-        <div class="title">
-          <h5 class="">Luva anti-touch</h5>
-          SKU: 234234234423
+  <div>
+    <NavAuthenticated v-if="watchNavBarAuthenticated" />
+    <NavBar v-if="watchNavBar" />
+    <section class="">
+      <div class="page-details">
+        <div class="img">
+          <img src="../img/glove/luva2.png" alt="" />
         </div>
-        <div class="price">
-          Preço unitario
-          <h5>R$10,00</h5>
-        </div>
-        <button type="button" @click="addCart(product.id)">Adicionar ao carrinho</button>
-        <details>
-          <summary>
-            <h5>Detalhes do produto</h5>
-            <img src="../img/icon-added.svg" alt="" />
-          </summary>
-          <div class="details">
+        <div class="content">
+          <div class="title">
+            <h2>Luva anti-touch</h2>
+            <h2 class="money">R$10,00</h2>
+            <div class="category">
+              <h6>Categoria:</h6>
+              <h6>EPI / Tecnologia</h6>
+            </div>
+            <h6>Disponibilidade em estoque</h6>
+            <hr />
+          </div>
+          <div class="description">
             <p>
-              - As mãos esquerda e direita são intercambiáveis <br>, universais para
-              ambas as mãos
-            </p>
-            <p>
-              - Anti-toque, anti-manchas e antiaderente <br> tornam seu processo de
-              desenho mais suave.
-            </p>
-            <p>
-              - Ajuda a proteger o seu tablet de desenho <br> da gordura das mãos e
-              do suor durante o desenho.
-            </p>
-            <p>- Reduz o atrito entre suas mãos e as <br> superfícies do tablet.</p>
-
-            <h4><strong>Observações:</strong></h4>
-            <p>
-              1. Devido a diferenças de monitor e efeitos de luz, a cor real do
-              item pode ser ligeiramente diferente da cor mostrada nas imagens.
-              Obrigado! <br />
-              2. Considere uma diferença de 1 a 3 cm devido à medição manual.
+              Essas luvas são especialmente úteis em ambientes industriais ou em
+              situações onde o contato acidental com dispositivos eletrônicos
+              pode causar problemas, como a ativação acidental de comandos em
+              máquinas ou equipamentos sensíveis. Fabricadas com materiais
+              condutivos especiais, as luvas bloqueiam a transmissão de sinais
+              elétricos dos dedos, impedindo que as telas capacitas detectem o
+              toque.
             </p>
           </div>
-        </details>
-        <hr />
+          <div class="buttons">
+            <button type="button" @click="addCart(product.id)">
+              Adicionar ao carrinho
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
+
+
+
 <script>
+import auth from "~/middleware/auth";
 export default {
+  middleware: [auth],
+
   data() {
     return {
+      watchNavBar: true,
+      watchNavBarAuthenticated: false,
       cssCart: "cartOn",
       boxOne: "",
       boxTwo: "",
@@ -73,6 +72,12 @@ export default {
   },
 
   mounted() {
+    const verify = localStorage.getItem("authenticated");
+    if (verify == "true") {
+      this.watchNavBar = false;
+      this.watchNavBarAuthenticated = true;
+    }
+
     this.$axios
       .$get("products")
       .then((product) => {
@@ -149,97 +154,85 @@ export default {
 
 
 
-
-
-
 <style scoped>
-* {
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-}
-section {
-  margin-top: 100px;
-}
-
-.page-product {
+section .page-details {
   display: flex;
   flex-direction: row;
-  gap: 50px;
-  padding: 60px 0 0 0;
+  gap: 30px;
+  margin: 50px 100px;
 }
 
-.content-img {
+.img {
   width: 50%;
-  background-color: rgba(238, 238, 238, 0.5);
-  border-radius: 3px;
 }
 
-.content-img img {
-  margin-top: 20px;
-  width: 100%;
+.img img {
+  border-radius: 10px;
+  background: #3333335e;
+  max-width: 100%;
 }
-
-.content-info {
+.content {
   width: 50%;
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  align-items: flex-start;
+  justify-content: center;
 }
 
-.content-info h5 {
-  color: #24252a;
-  font-size: 30px;
+.title h2 {
+  font-size: 25px;
 }
 
-details summary {
-  list-style: none;
+.title h2:nth-of-type(2) {
+  color: #064630;
+  font-size: 22px;
+}
+
+.category {
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 15px;
+}
+.category h6 {
+  font-size: 14px;
+}
+.category h6:nth-of-type(2) {
+  color: #064630;
+}
+.title h6 {
+  font-size: 14px;
 }
 
-details summary img {
-  width: 25px;
+.content .description p {
+  font-size: 14px;
+}
+
+.buttons {
+  width: 100%;
 }
 
 button {
-  width: 60%;
-  border: 0;
-  height: 45px;
-  background-color: #24252a;
+  background-color: #064630;
+  border: none;
+  width: 100%;
+  height: 40px;
   color: #fff;
-  border-radius: 2px;
+  font-size: 15px;
+  border-radius: 10px;
 }
 
-.details h4 {
-  margin-top: 15px;
-  font-weight: 100;
-}
-
-hr {
-  background: #24252a;
+@media screen and (max-width: 975px) {
+  section .page-details {
+    display: flex;
+    flex-direction: column;
+  }
+.img {
   width: 100%;
 }
 
-@media screen and (max-width: 1100px) {
-  .page-product {
-    display: flex;
-    flex-direction: column;
-    padding: 0 20px;
-  }
+.content {
+  width: 100%;
+}
 
-  .content-img {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .content-img img {
-    width: 100%;
-  }
-  .content-info {
-    width: 100%;
-  }
 }
 </style>

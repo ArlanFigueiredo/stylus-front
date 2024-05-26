@@ -4,7 +4,7 @@
       <div class="description">
         <h1>Conheça a nossa Luva Anti-Touch</h1>
         <p>Só aqui você encontra novidades</p>
-        <button><h5>Ver mais detalhes</h5></button>
+        <button type="button" @click="viewProdutcDetails()"><h5>Ver mais detalhes</h5></button>
       </div>
       <div class="content">
         <img src="../img/glove/glove-3.webp" alt="" />
@@ -13,6 +13,20 @@
   </section>
 </template>
 
+
+<script>
+export default {
+  data: {
+    return: {},
+  
+  },
+  methods: {
+    viewProdutcDetails(){
+      this.$router.push('glove');
+    }
+  }
+};
+</script>
 
 
 <style scoped>
@@ -65,17 +79,15 @@ h1 {
   font-size: 70px;
 }
 
-p{
+p {
   text-align: center;
 }
 
-
 @media screen and (max-width: 1200px) {
-
-  .page-header{
+  .page-header {
     display: flex;
     flex-direction: column;
-    background-image: url('../img/glove/glove-3.webp');
+    background-image: url("../img/glove/glove-3.webp");
     box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.438);
     background-size: cover;
     background-position: center;
@@ -84,39 +96,33 @@ p{
     color: #fff;
   }
 
-  .page-header .content{
+  .page-header .content {
     display: none;
   }
 
-  .page-header .description{
+  .page-header .description {
     text-align: center;
     margin: 0 60px;
     width: 70%;
-    
   }
 
-  h1{
+  h1 {
     text-align: center;
     font-size: 50px;
   }
-
 }
 
 @media screen and (max-width: 990px) {
+  .page-header {
+    width: 100%;
+  }
 
-.page-header{width: 100%;}
+  .page-header .description {
+    width: 100%;
+  }
 
-.page-header .description{
-  width: 100%;
-
-
+  h1 {
+    font-size: 40px;
+  }
 }
-
-h1{
-  font-size: 40px;
-}
-
-}
-
-
 </style>
